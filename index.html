@@ -17,34 +17,31 @@
             position: relative;
             overflow: hidden;
         }
-
         /* 카드 래퍼 */
         .card-wrapper {
             position: relative;
-            width: 450px;
-            height: 280px;
+            width: 705px;
+            height: 442px;
         }
-
         /* 배경 코드 레이어 */
         .code-background {
             position: absolute;
             width: 100%;
             height: 100%;
             background: #0a0a0a;
-            border-radius: 16px;
+            border-radius: 20px;
+            box-sizing: border-box;
             padding: 20px;
             font-family: 'Courier New', monospace;
-            font-size: 11px;
+            font-size: 15px;
             line-height: 1.6;
             color: #4ade80;
             overflow: hidden;
         }
-
         .code-line {
             opacity: 0;
             animation: codeFadeInOut 15s infinite;
         }
-
         .code-line:nth-child(1) { animation-delay: 1.2s; }
         .code-line:nth-child(2) { animation-delay: 2.4s; }
         .code-line:nth-child(3) { animation-delay: 1.6s; }
@@ -55,7 +52,6 @@
         .code-line:nth-child(8) { animation-delay: 2.6s; }
         .code-line:nth-child(9) { animation-delay: 2.8s; }
         .code-line:nth-child(10) { animation-delay: 3.0s; }
-
         @keyframes codeFadeInOut {
             0%, 20% {
                 opacity: 0;
@@ -67,11 +63,9 @@
                 opacity: 0;
             }
         }
-
         .keyword { color: #c084fc; }
         .string { color: #fbbf24; }
         .comment { color: #6b7280; }
-
         /* 카드 컨테이너 */
         .card-container {
             position: absolute;
@@ -80,23 +74,28 @@
             transform-style: preserve-3d;
             perspective: 1000px;
         }
-
         /* 카드 */
         .card {
             position: absolute;
             width: 100%;
             height: 100%;
             border-radius: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: none;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            padding: 30px;
-            display: flex;
+            padding: 0;
+            display: block;
             flex-direction: column;
             justify-content: space-between;
             clip-path: inset(0 0 0 0);
             animation: cardScan 15s ease-in-out infinite;
         }
-
+        .card-image-content {
+            width: 100%;
+            height: 100%;
+            object-fit: fill; 
+            border-radius: 16px;
+            display: block;
+        }
         @keyframes cardScan {
             0%, 15% {
                 clip-path: inset(0 100% 0 0);
@@ -111,7 +110,6 @@
                 clip-path: inset(0 100% 0 0);
             }
         }
-
         /* 스캔 라인 효과 */
         .scan-line {
             position: absolute;
@@ -135,7 +133,6 @@
             animation: scanMove 15s ease-in-out infinite;
             z-index: 10;
         }
-
         @keyframes scanMove {
             0%, 10% {
                 left: 0;
@@ -160,50 +157,6 @@
                 opacity: 0;
             }
         }
-
-        /* 카드 내용 */
-        .card-logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-        }
-
-        .card-info {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .card-name {
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-        }
-
-        .card-detail {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .card-number {
-            font-size: 16px;
-            letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 10px;
-        }
-
-        .card-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .card-chip {
-            width: 50px;
-            height: 40px;
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            border-radius: 6px;
-        }
     </style>
 </head>
 <body>
@@ -211,16 +164,14 @@
     <header>
         <h1>DUICA A3</h1>
     </header>
-
     <!-- 네비게이션 -->
     <nav>
         <a href="index.html" class="active" target="_self">홈</a>
-        <a href="useai.html">AI 활용</a>
+        <a href="bookmark.html">듀이카 북마크</a>
         <a href="language.html">언어요약</a>
         <a href="timetable.html">시간표</a>
-        <a href="bookmark.html">북마크</a>
+        <a href="empty.html">임시</a>
     </nav>
-
     <!-- 메인 컨텐츠 -->
     <main>
         <div class="card-wrapper">
@@ -242,18 +193,7 @@
             <div class="card-container">
                 <div class="scan-line"></div>
                 <div class="card">
-                    <div class="card-logo">동국대학교 듀이카</div>
-                    
-                    <div class="card-info">
-                        <div class="card-name">정주호</div>
-                        <div class="card-detail">컴퓨터공학과</div>
-                        <div class="card-number">2025-123456</div>
-                    </div>
-                    
-                    <div class="card-bottom">
-                        <div class="card-chip"></div>
-                        <div class="card-detail">225230001</div>
-                    </div>
+                    <img src="img/studentcard.png" alt="학생증 카드 사진" class="card-image-content">
                 </div>
             </div>
         </div>

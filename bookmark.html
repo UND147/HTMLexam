@@ -6,22 +6,51 @@
     <title>R1-A3-225230001-정주호</title>
     <link rel="icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/style.css">
-</head>
+    <style>
+        .iframe-wrapper {
+            display: flex; /* 자식 요소(iframe)를 좌우로 나란히 배치 */
+            height: calc(100vh - 122px - 15px); 
+            padding: 20px 40px 0 40px; /* 상단: 20px, 좌우: 40px 여백 (좌우 화면 꽉 채우기 목적) */
+            gap: 20px; /* iframe 사이에 20px 간격 추가 */
+            background: #121212; /* body와 동일한 배경색 적용 */
+        }
+        .iframe-wrapper iframe { 
+            height: 100%;
+            border: 1px solid #2a2a2a; /* 기존 헤더/네비게이션 border와 유사한 스타일 */
+            border-radius: 1%; /* 기존 인라인 스타일 유지 */
+        }
+        .iframe-wrapper iframe[name="left"] {
+            flex-basis: 35%; 
+            flex-grow: 0; /* 35%로 고정 */
+        }
+        .iframe-wrapper iframe[name="right"] {
+            flex-basis: 65%;
+            flex-grow: 1; /* 남은 공간을 채우고, 35:65 비율 유지 */
+        }
+    </style>
 <body>
    <header>
         <h1>DUICA A3</h1>
     </header>
-
     <!-- 네비게이션 -->
     <nav>
         <a href="index.html" class="active" target="_self">홈</a>
-        <a href="useai.html">AI 활용</a>
+        <a href="bookmark.html">듀이카 북마크</a>
         <a href="language.html">언어요약</a>
         <a href="timetable.html">시간표</a>
-        <a href="bookmark.html">북마크</a>
+        <a href="empty.html">임시</a>
     </nav>
+    <p></p>
+    <div class="iframe-wrapper">
+        <iframe src="leftframe.html"
+            name="left">
+            left iframe
+        </iframe>
+    <iframe src="rightframe.html"
+            name="right">
+            right iframe
+    </iframe>
+    </div>
 <script src="js/navigation.js"></script> 
-</body>
-</html>
 </body>
 </html>

@@ -37,14 +37,9 @@
     <button class="ai-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/undergraduate/cyber_data.jsp?page=1&flag=mpboard&mode=W&keyword=&CID=&proid=&pronm=%EC%9C%A4%EC%84%B1%EB%A6%BC&sabun=20053004&userid=yslhappy">🎨 윤성림교수님 사이버강의실</button>
     
     <script>
-        // 버튼 클릭 이벤트 핸들러
         document.querySelectorAll('.ai-button').forEach(button => {
             button.addEventListener('click', function() {
                 const targetUrl = this.getAttribute('data-url');
-                
-                // 최상위 문서(index.html)에 있는 'right'라는 이름의 iframe을 찾아서 src를 변경합니다.
-                // iframe은 'target' 속성 대신 'name' 속성을 사용했으므로, 
-                // parent.window.frames['right']를 사용하여 접근해야 합니다.
                 const rightIframe = parent.window.frames['right'];
                 
                 if (rightIframe) {
@@ -57,8 +52,5 @@
             });
         });
     </script>
-    
-        
-
 </body>
 </html>

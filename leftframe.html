@@ -11,7 +11,7 @@
             padding: 20px;
             font-family: Arial, sans-serif;
         }
-        .ai-button {
+        .bookmark-button {
             display: block; /* 블록 요소로 만들어 너비 꽉 채우기 */
             width: 100%;
             padding: 15px;
@@ -25,28 +25,49 @@
             font-size: 16px;
             transition: background-color 0.2s;
         }
-        .ai-button:hover {
+        .bookmark-button:hover {
             background-color: #555;
         }
     </style>
 </head>
 <body>
-    <button class="ai-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/community/notice_list.jsp">✨ 듀이카 공지</button>
-    <button class="ai-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/subject/curriculum.jsp?flag=comp">🐈 컴퓨터공학과 강의계획서</button>
-    <button class="ai-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/student/info_form_list.jsp">♊ 듀이카 양식함</button>
-    <button class="ai-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/undergraduate/cyber_data.jsp?page=1&flag=mpboard&mode=W&keyword=&CID=&proid=&pronm=%EC%9C%A4%EC%84%B1%EB%A6%BC&sabun=20053004&userid=yslhappy">🎨 윤성림교수님 사이버강의실</button>
+    <button class="bookmark-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/community/notice_list.jsp">✨ 듀이카 공지</button>
+    <button class="bookmark-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/subject/curriculum.jsp?flag=comp">🐈 컴퓨터공학과 강의계획서</button>
+    <button class="bookmark-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/student/info_form_list.jsp">♊ 듀이카 양식함</button>
+    <button class="bookmark-button" data-url="https://www.cb.or.kr/creditbank/base/nMain.do">♊ 학점은행제 홈페이지</button>
+    <button class="bookmark-button" data-url="https://solved.ac/">♊ 알고리즘 문제풀기</button>
+    <button class="bookmark-button" data-url="https://rgbcolorpicker.com/">♊ RGB값 구하기</button>
+    <button class="bookmark-button" data-url="https://dict.naver.com/">♊ 네이버 사전</button>
+    <button class="bookmark-button" data-url="https://nara-speller.co.kr/speller/">♊ 맞춤법 검사</button>
+    <h3>사이버강의실 바로가기 > 로그인 후 한번 더 클릭</h3>
+    <button class="bookmark-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/undergraduate/cyber_data.jsp?page=1&flag=mpboard&mode=W&keyword=&CID=&proid=&pronm=%EC%9C%A4%EC%84%B1%EB%A6%BC&sabun=20053004&userid=yslhappy" 
+                                    data-target="_blank">🎨 윤성림교수님 사이버강의실 바로가기</button>
+    <button class="bookmark-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/undergraduate/cyber_data.jsp?page=1&flag=mpboard&mode=W&keyword=&CID=&proid=&pronm=%EA%B0%95%ED%98%B8%EC%84%9D&sabun=20252001&userid=hsriver"      
+                                    data-target="_blank">🎨 강호석교수님 사이버강의실 바로가기</button>
+    <button class="bookmark-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/undergraduate/cyber_data.jsp?page=1&flag=mpboard&mode=W&keyword=&CID=&proid=&pronm=%ED%95%9C%EC%9D%B8&sabun=20172005&userid=ihan8548" 
+                                    data-target="_blank">🎨 한인교수님 사이버강의실 바로가기</button>
+    <button class="bookmark-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/undergraduate/cyber_data.jsp?page=1&flag=mpboard&mode=W&keyword=&CID=&proid=&pronm=%EA%B9%80%EB%B3%B4%EC%9B%90&sabun=20002001&userid=bwkim" 
+                                    data-target="_blank">🎨 김보원교수님 사이버강의실 바로가기</button>
+    <button class="bookmark-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/undergraduate/cyber_data.jsp?page=1&flag=mpboard&mode=W&keyword=&CID=&proid=&pronm=%EC%9D%B4%ED%98%95%EC%88%99&sabun=20243002&userid=veca777" 
+                                    data-target="_blank">🎨 이형숙교수님 사이버강의실 바로가기</button>
+    <button class="bookmark-button" data-url="http://www.ducsi.ac.kr/Ducsi/ducsi_new/undergraduate/cyber_data.jsp?page=1&flag=mpboard&mode=W&keyword=&CID=&proid=&pronm=%EA%B9%80%EC%A7%80%EC%97%B0&sabun=20173016&userid=jykim429" 
+                                    data-target="_blank">🎨 김지연교수님 사이버강의실 바로가기</button>
     
     <script>
-        document.querySelectorAll('.ai-button').forEach(button => {
+        document.querySelectorAll('.bookmark-button').forEach(button => {
             button.addEventListener('click', function() {
                 const targetUrl = this.getAttribute('data-url');
+                const customTarget = this.getAttribute('data-target');
+                if (customTarget === '_blank') {
+                    window.open(targetUrl, '_blank');
+                    return; 
+                }
                 const rightIframe = parent.window.frames['right'];
                 
                 if (rightIframe) {
                     rightIframe.location.href = targetUrl;
                 } else {
                     console.error("오른쪽 iframe을 찾을 수 없습니다.");
-                    // Fallback: 새 탭에서 열기
                     window.open(targetUrl, '_blank'); 
                 }
             });

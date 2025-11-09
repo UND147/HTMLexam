@@ -6,20 +6,372 @@
     <title>R1-A3-225230001-정주호</title>
     <link rel="icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/timetable.css">
 </head>
 <body>
-   <header>
+    <header>
         <h1>DUICA A3</h1>
     </header>
 
     <!-- 네비게이션 -->
     <nav>
-        <a href="index.html" class="active" target="_self">홈</a>
+        <a href="index.html" target="_self">홈</a>
         <a href="bookmark.html">북마크</a>
         <a href="language.html">언어요약</a>
-        <a href="timetable.html">시간표</a>
+        <a href="timetable.html" class="active">시간표</a>
         <a href="empty.html">임시</a>
     </nav>
-<script src="js/navigation.js"></script> 
+    <!-- 버튼 영역 -->
+  <div class="button-area">
+    <h3>현재 localStorage를 활용해 동작중입니다.</h3>
+    <div class="button-group">
+        <button class="btn btn-subject" onclick="openSubjectModal()">+ 과목 추가</button>
+        <button class="btn btn-todo" onclick="openTodoModal()">+ Todo 추가</button>
+    </div>
+</div>
+
+    <!-- 시간표 -->
+    <div class="timetable-container">
+        <table class="timetable">
+            <thead>
+                <tr>
+                    <th>시간</th>
+                    <th class="day-header">월</th>
+                    <th class="day-header">화</th>
+                    <th class="day-header">수</th>
+                    <th class="day-header">목</th>
+                    <th class="day-header">금</th>
+                </tr>
+            </thead>
+            <tbody id="timetableBody">
+                <!-- 1교시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">1교시</div>
+                        <div class="time-value">09:00</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="1" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="1" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="1" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="1" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="1" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 2교시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">2교시</div>
+                        <div class="time-value">10:00</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="2" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="2" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="2" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="2" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="2" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 3교시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">3교시</div>
+                        <div class="time-value">11:00</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="3" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="3" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="3" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="3" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="3" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 점심 -->
+                <tr>
+                    <td class="lunch-cell">
+                        <div class="lunch-label">점심</div>
+                    </td>
+                    <td class="lunch-cell" colspan="5"></td>
+                </tr>
+                <!-- 4교시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">4교시</div>
+                        <div class="time-value">12:30</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="4" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="4" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="4" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="4" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="4" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 5교시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">5교시</div>
+                        <div class="time-value">13:30</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="5" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="5" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="5" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="5" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="5" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 6교시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">6교시</div>
+                        <div class="time-value">14:30</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="6" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="6" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="6" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="6" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="6" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 7교시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">7교시</div>
+                        <div class="time-value">15:30</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="7" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="7" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="7" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="7" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="7" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 8교시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">8교시</div>
+                        <div class="time-value">16:30</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="8" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="8" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="8" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="8" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="8" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 구분선 -->
+                <tr class="separator-row">
+                    <td colspan="6"><div class="separator-line"></div></td>
+                </tr>
+                <!-- 18시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">18시</div>
+                        <div class="time-value">18:00</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="18" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="18" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="18" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="18" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="18" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 19시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">19시</div>
+                        <div class="time-value">19:00</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="19" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="19" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="19" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="19" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="19" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 20시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">20시</div>
+                        <div class="time-value">20:00</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="20" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="20" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="20" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="20" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="20" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 21시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">21시</div>
+                        <div class="time-value">21:00</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="21" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="21" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="21" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="21" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="21" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 22시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">22시</div>
+                        <div class="time-value">22:00</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="22" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="22" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="22" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="22" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="22" onclick="selectCell(this)"></td>
+                </tr>
+                <!-- 23시 -->
+                <tr>
+                    <td class="time-cell">
+                        <div class="time-label">23시</div>
+                        <div class="time-value">23:00</div>
+                    </td>
+                    <td class="empty-cell" data-day="월" data-period="23" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="화" data-period="23" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="수" data-period="23" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="목" data-period="23" onclick="selectCell(this)"></td>
+                    <td class="empty-cell" data-day="금" data-period="23" onclick="selectCell(this)"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 과목 추가 모달 -->
+    <div class="modal" id="subjectModal">
+        <div class="modal-content">
+            <div class="modal-header">과목 추가</div>
+            <form id="subjectForm">
+                <div class="form-group">
+                    <label>과목명</label>
+                    <input type="text" id="subjectName" required>
+                </div>
+                <div class="form-group">
+                    <label>교수명</label>
+                    <input type="text" id="professorName" required>
+                </div>
+                <div class="form-group">
+                    <label>강의실</label>
+                    <input type="text" id="classroom" required>
+                </div>
+                <div class="form-group">
+                    <label>요일</label>
+                    <select id="daySelect" required>
+                        <option value="">선택</option>
+                        <option value="월">월요일</option>
+                        <option value="화">화요일</option>
+                        <option value="수">수요일</option>
+                        <option value="목">목요일</option>
+                        <option value="금">금요일</option>
+                    </select>
+                </div>
+                <fieldset class="form-group">
+                    <legend>교시 (복수 선택 가능)</legend>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="period" value="1"> 1교시 (09:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="period" value="2"> 2교시 (10:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="period" value="3"> 3교시 (11:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="period" value="4"> 4교시 (12:30)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="period" value="5"> 5교시 (13:30)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="period" value="6"> 6교시 (14:30)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="period" value="7"> 7교시 (15:30)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="period" value="8"> 8교시 (16:30)
+                        </label>
+                    </div>
+                </fieldset>
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-cancel" onclick="closeSubjectModal()">취소</button>
+                    <button type="submit" class="btn btn-save">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Todo 추가 모달 -->
+    <div class="modal" id="todoModal">
+        <div class="modal-content">
+            <div class="modal-header">Todo 추가</div>
+            <form id="todoForm">
+                <div class="form-group">
+                    <label>제목</label>
+                    <input type="text" id="todoTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>메모</label>
+                    <input type="text" id="todoMemo">
+                </div>
+                <div class="form-group">
+                    <label>요일</label>
+                    <select id="todoDaySelect" required>
+                        <option value="">선택</option>
+                        <option value="월">월요일</option>
+                        <option value="화">화요일</option>
+                        <option value="수">수요일</option>
+                        <option value="목">목요일</option>
+                        <option value="금">금요일</option>
+                    </select>
+                </div>
+                <fieldset class="form-group">
+                    <legend>시간 (복수 선택 가능)</legend>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="1"> 1교시 (09:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="2"> 2교시 (10:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="3"> 3교시 (11:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="4"> 4교시 (12:30)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="5"> 5교시 (13:30)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="6"> 6교시 (14:30)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="7"> 7교시 (15:30)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="8"> 8교시 (16:30)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="18"> 18시 (18:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="19"> 19시 (19:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="20"> 20시 (20:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="21"> 21시 (21:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="22"> 22시 (22:00)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="todoPeriod" value="23"> 23시 (23:00)
+                        </label>
+                    </div>
+                </fieldset>
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-cancel" onclick="closeTodoModal()">취소</button>
+                    <button type="submit" class="btn btn-save">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/timetable.js"></script>
 </body>
 </html>

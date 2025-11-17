@@ -5,11 +5,278 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R1-A3-225230001-정주호</title>
     <link rel="icon" href="img/favicon.ico">
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #121212;
+            color: #ffffff;
+            margin: 0;
+            overflow-y: scroll;
+        }
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a3a3a;
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4a4a;
+        }
+        #header {
+            background: #1e1e1e;
+            padding: 10px 60px;
+            border-bottom: 1px solid #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', arial, sans-serif;
+        }
+        #header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        .button-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+            margin-right: 20px;
+        }
+        .button-wrapper a {
+            display: flex;
+            align-items: center;
+            transition: opacity 0.3s;
+            position: relative;
+        }
+        .button-wrapper a:hover {
+            opacity: 0.7;
+        }
+        .button-wrapper a[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2a2a2a;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 1px solid #3a3a3a;
+        }
+        .button-wrapper a[data-tooltip]::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-bottom-color: #2a2a2a;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+        .button-wrapper a[data-tooltip]:hover::after,
+        .button-wrapper a[data-tooltip]:hover::before {
+            opacity: 1;
+            transform: translateX(-50%) translateY(2px);
+        }
+        .login-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        #header img {
+            height: 48px;
+            width: 48px;
+        }
+        #header .button-wrapper img {
+            height: 36px;
+            width: 36px;
+        }
+        .iText {
+            margin: -2px 0 0;
+            background: #fff;
+            width: 80px;
+            padding: 2px 5px;
+            border: 1px solid #bbb;
+        }
+        input[type="text"], input[type="password"] {
+            padding-block: 1px;
+            padding-inline: 2px;
+        }
+        .hLine .a {
+            margin: 0 7px 0 5px;
+            color: #fff;
+            text-decoration: none;
+        }
+        button {
+            display: inline-block;
+            position: relative;
+            margin: -2px 0 0 4px;
+            padding: 2px 7px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            color: #555;
+            font-size: 11px;
+            cursor: pointer;
+            white-space: nowrap;
+            line-height: normal;
+            text-indent: 0px;
+            text-align: center;
+            box-sizing: border-box;
+            padding-block: 1px;
+            padding-inline: 6px;
+        }
+        nav {
+            background: #1e1e1e;
+            padding: 15px 40px;
+            border-bottom: 1px solid #2a2a2a;
+            display: flex;
+            gap: 30px;
+        }
+        nav a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        nav a.active {
+            color: #ffffff;
+            border-bottom-color: #3b82f6;
+        }
+        nav a:hover {
+            color: #ffffff;
+        }
+        /* 회원가입 폼 스타일 */
+        .inputForm {
+            max-width: 480px;
+            margin: 60px auto;
+            padding: 40px;
+            background: #1e1e1e;
+            border-radius: 16px;
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+        .inputForm h2 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: center;
+        }
+        .inputForm .subtitle {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 35px;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #d1d5db;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .form-group label .required {
+            color: #ef4444;
+            margin-left: 2px;
+        }
+        .form-group input.signup {
+            width: 100%;
+            padding: 12px 16px;
+            background: #121212;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        .form-group input.signup:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .form-group input.signup::placeholder {
+            color: #6b7280;
+        }
+        .form-group .input-hint {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+        .button-group button {
+            flex: 1;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0;
+        }
+        .button-group button[type="submit"] {
+            background: #3b82f6;
+            color: #ffffff;
+            border: 1px solid #3b82f6;
+        }
+        .button-group button[type="submit"]:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+        .button-group button[type="reset"] {
+            background: transparent;
+            color: #9ca3af;
+            border: 1px solid #3a3a3a;
+        }
+        .button-group button[type="reset"]:hover {
+            background: #2a2a2a;
+            color: #ffffff;
+        }
+        .form-footer {
+            margin-top: 24px;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        .form-footer a {
+            color: #3b82f6;
+            text-decoration: none;
+            margin-left: 8px;
+        }
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header id="header">
-        <h1>DUICA A3</h1> <img src="img/donggukMark.png" alt="동국대 마크">
+        <h1>DUICA A3</h1>
+        <img src="img/donggukMark.png" alt="동국대 마크">
         <div class="button-wrapper">
             <a href="https://github.com/UND147/R1-A3-225230001-CHENGJUHO" target="_blank" data-tooltip="GitHub 저장소">
                 <img src="img/githubimg.png" alt="깃허브 이미지">
@@ -27,23 +294,61 @@
             </span>
         </div>
     </header>
+    
     <nav>
-        <a href="index.html" class="active" target="_self">홈</a>
+        <a href="index.html" target="_self">홈</a>
         <a href="attendance.html">출석체크</a>
         <a href="bookmark.html">북마크</a>
         <a href="language.html">언어요약</a>
         <a href="timetable.html">시간표</a>
     </nav>
-    <!--아이디
-        비밀번호
-        비밀번호 확인
-        닉네임
-        이메일 주소
-        이메일 주소 확인
-        등록 버튼 / 취소버튼-->
-    <!-- 네비게이션 -->
-<script src="js/navigation.js"></script> 
-</body>
-</html>
+    
+    <div class="inputForm">
+        <h2>회원가입</h2>
+        <p class="subtitle">DUICA A3 서비스를 이용하기 위해 가입해주세요</p>
+        
+        <form>
+            <div class="form-group">
+                <label for="user_id">아이디<span class="required">*</span></label>
+                <input class="signup" type="text" id="user_id" name="user_id" placeholder="영문, 숫자 조합 6-20자" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">비밀번호<span class="required">*</span></label>
+                <input class="signup" type="password" id="password" name="password" placeholder="영문, 숫자, 특수문자 조합 8자 이상" required>
+                <p class="input-hint">안전한 비밀번호를 위해 영문, 숫자, 특수문자를 조합해주세요</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="passwordCheck">비밀번호 확인<span class="required">*</span></label>
+                <input class="signup" type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호를 다시 입력해주세요" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="nickname">닉네임<span class="required">*</span></label>
+                <input class="signup" type="text" id="nickname" name="nickname" placeholder="서비스에서 사용할 닉네임" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">이메일<span class="required">*</span></label>
+                <input class="signup" type="email" id="email" name="email" placeholder="example@duica.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="emailCheck">이메일 확인<span class="required">*</span></label>
+                <input class="signup" type="email" id="emailCheck" name="emailCheck" placeholder="이메일을 다시 입력해주세요" required>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit">회원가입</button>
+                <button type="reset">초기화</button>
+            </div>
+        </form>
+        
+        <div class="form-footer">
+            이미 계정이 있으신가요?
+            <a href="index.html">로그인하기</a>
+        </div>
+    </div>
 </body>
 </html>

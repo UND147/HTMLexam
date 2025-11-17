@@ -2,12 +2,10 @@
 const subjectColors = ['subject-blue', 'subject-purple', 'subject-green', 'subject-pink', 'subject-mint'];
 let colorIndex = 0;
 let selectedCell = null;
-
 // 페이지 로드 시 시간표 불러오기
 document.addEventListener('DOMContentLoaded', function() {
     loadTimetable();
 });
-
 // localStorage에서 데이터 불러오기
 function loadTimetable() {
     const data = JSON.parse(localStorage.getItem('timetable')) || [];
@@ -32,7 +30,6 @@ function loadTimetable() {
         }
     });
 }
-
 // localStorage에 데이터 저장
 function saveTimetable(item) {
     const data = JSON.parse(localStorage.getItem('timetable')) || [];
@@ -41,17 +38,14 @@ function saveTimetable(item) {
     filtered.push(item);
     localStorage.setItem('timetable', JSON.stringify(filtered));
 }
-
 // 셀 선택
 function selectCell(cell) {
     selectedCell = cell;
 }
-
 // 과목 추가 모달 열기
 function openSubjectModal() {
     document.getElementById('subjectModal').classList.add('active');
 }
-
 // 과목 추가 모달 닫기
 function closeSubjectModal() {
     document.getElementById('subjectModal').classList.remove('active');
@@ -61,12 +55,10 @@ function closeSubjectModal() {
         checkbox.checked = false;
     });
 }
-
 // Todo 추가 모달 열기
 function openTodoModal() {
     document.getElementById('todoModal').classList.add('active');
 }
-
 // Todo 추가 모달 닫기
 function closeTodoModal() {
     document.getElementById('todoModal').classList.remove('active');
@@ -76,28 +68,22 @@ function closeTodoModal() {
         checkbox.checked = false;
     });
 }
-
 // 과목 추가 폼 제출
 document.getElementById('subjectForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    
     const name = document.getElementById('subjectName').value;
     const professor = document.getElementById('professorName').value;
     const classroom = document.getElementById('classroom').value;
     const day = document.getElementById('daySelect').value;
-    
     // 선택된 모든 교시 가져오기
     const selectedPeriods = Array.from(document.querySelectorAll('input[name="period"]:checked'))
         .map(checkbox => checkbox.value);
-    
     if (selectedPeriods.length === 0) {
         alert('최소 1개 이상의 교시를 선택해주세요.');
         return;
     }
-    
     const color = subjectColors[colorIndex % subjectColors.length];
     colorIndex++;
-    
     // 각 교시마다 저장
     selectedPeriods.forEach(period => {
         const item = {
@@ -109,9 +95,7 @@ document.getElementById('subjectForm').addEventListener('submit', function(e) {
             period: period,
             color: color
         };
-        
         saveTimetable(item);
-        
         const cell = document.querySelector(`[data-day="${day}"][data-period="${period}"]`);
         if (cell) {
             cell.className = `subject-cell ${color}`;
@@ -125,15 +109,12 @@ document.getElementById('subjectForm').addEventListener('submit', function(e) {
     
     closeSubjectModal();
 });
-
 // Todo 추가 폼 제출
 document.getElementById('todoForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    
     const title = document.getElementById('todoTitle').value;
     const memo = document.getElementById('todoMemo').value;
     const day = document.getElementById('todoDaySelect').value;
-    
     // 선택된 모든 시간 가져오기
     const selectedPeriods = Array.from(document.querySelectorAll('input[name="todoPeriod"]:checked'))
         .map(checkbox => checkbox.value);
@@ -152,7 +133,6 @@ document.getElementById('todoForm').addEventListener('submit', function(e) {
             day: day,
             period: period
         };
-        
         saveTimetable(item);
         
         const cell = document.querySelector(`[data-day="${day}"][data-period="${period}"]`);
@@ -168,7 +148,6 @@ document.getElementById('todoForm').addEventListener('submit', function(e) {
     
     closeTodoModal();
 });
-
 // 항목 삭제
 function deleteItem(day, period) {
     if (confirm('이 항목을 삭제하시겠습니까?')) {
@@ -184,7 +163,6 @@ function deleteItem(day, period) {
         }
     }
 }
-
 // 모달 외부 클릭 시 닫기
 window.addEventListener('click', function(e) {
     const subjectModal = document.getElementById('subjectModal');

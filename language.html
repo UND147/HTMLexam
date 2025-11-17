@@ -6,10 +6,148 @@
     <title>R1-A3-225230001-정주호</title>
     <link rel="icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 언어 탭 네비게이션 */
+        #language-nav {
+            background: #1a1a1a;
+            padding: 12px 40px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        
+        #language-nav a {
+            font-size: 13px;
+            gap: 20px;
+        }
+        /* 메인 컨텐츠 영역 */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 60px;
+        }
+        /* 언어별 컨텐츠 */
+        .language-content {
+            display: none;
+        }
+        
+        .language-content.active {
+            display: block;
+        }
+        /* 제목 스타일 */
+        .language-content h1 {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3b82f6;
+        }
+        .language-content h2 {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .language-content h3 {
+            color: #d1d5db;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+        }
+        /* 본문 텍스트 */
+        .language-content p {
+            color: #9ca3af;
+            line-height: 1.8;
+            margin: 15px 0;
+            font-size: 15px;
+        }
+        /* 코드 블록 */
+        .code-block {
+            background: #0a0a0a;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #2a2a2a;
+            color: #9ca3af;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #e5e7eb;
+        }
+        .code-block code {
+            font-family: inherit;
+        }
+        /* 코드 하이라이트 */
+        .keyword { color: #c084fc; }
+        .string { color: #fbbf24; }
+        .comment { color: #6b7280; font-style: italic; }
+        .function { color: #60a5fa; }
+        .number { color: #34d399; }
+        /* 리스트 */
+        .language-content ul {
+            color: #9ca3af;
+            line-height: 1.8;
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        .language-content li {
+            margin: 8px 0;
+        }
+        /* 인라인 코드 */
+        .language-content code {
+            background: #1a1a1a;
+            color: #fbbf24;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 13px;
+        }
+        /* 주석 박스 */
+        .note-box {
+            background: #1a1a1a;
+            border-left: 4px solid #3b82f6;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        .note-box p {
+            margin: 5px 0;
+            color: #d1d5db;
+        }
+        /* 뱃지 */
+        .badge {
+            display: inline-block;
+            background: #2a2a2a;
+            color: #9ca3af;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
     <header id="header">
-        <h1>DUICA A3</h1> <img src="img/donggukMark.png" alt="동국대 마크">
+        <h1>DUICA A3</h1>
+        <img src="img/donggukMark.png" alt="동국대 마크">
         <div class="button-wrapper">
             <a href="https://github.com/UND147/R1-A3-225230001-CHENGJUHO" target="_blank" data-tooltip="GitHub 저장소">
                 <img src="img/githubimg.png" alt="깃허브 이미지">
@@ -28,29 +166,193 @@
         </div>
     </header>
 
-    <!-- 네비게이션 -->
     <nav>
-        <a href="index.html" class="active" target="_self">홈</a>
+        <a href="index.html" target="_self">홈</a>
         <a href="attendance.html">출석체크</a>
         <a href="bookmark.html">북마크</a>
-        <a href="language.html">언어요약</a>
+        <a href="language.html" class="active">언어요약</a>
         <a href="timetable.html">시간표</a>
     </nav>
-    <nav >
-        <a href="#" class="active" target="_self">C</a>
-        <a href="#">C/CPP</a>
-        <a href="#">HTML</a>
-        <a href="#">JAVASCRIPT</a>
-        <a href="#">JAVA</a>
-        <a href="#">ANDROID</a>
-        <a href="#">SQL</a>
+
+    <nav id="language-nav">
+        <a href="#" class="lang-tab active" data-lang="c">C</a>
+        <a href="#" class="lang-tab" data-lang="cpp">CPP</a>
+        <a href="#" class="lang-tab" data-lang="html">HTML</a>
+        <a href="#" class="lang-tab" data-lang="javascript">JAVASCRIPT</a>
+        <a href="#" class="lang-tab" data-lang="java">JAVA</a>
+        <a href="#" class="lang-tab" data-lang="android">ANDROID</a>
+        <a href="#" class="lang-tab" data-lang="sql">SQL</a>
     </nav>
-    <!-- iframe 으로 language menu 화면 연결 구현 -->
-    <div>
-        <iframe>
+    <div class="content-wrapper">
+        <!-- C 언어 컨텐츠 -->
+        <div class="language-content active" data-lang="c">
+            <h1>C 언어 요약<span class="badge">기초부터 심화까지</span></h1>
             
-        </iframe>
+            <h2>기본 구조</h2>
+            <p>C 언어 프로그램은 main() 함수가 필수이며, 실행 파일자체가 main입니다.</p>
+            
+            <div class="code-block" data-lang="c">
+                <pre><code><span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+<span class="keyword">int</span> <span class="function">main</span>() {
+<span class="function">printf</span>(<span class="string">"Hello, World!\n"</span>);
+<span class="keyword">return</span> <span class="number">0</span>;
+}</code></pre>
+            </div>
+
+            <h2>변수와 자료형</h2>
+            <h3>기본 자료형</h3>
+            <ul>
+                <li><code>int</code> - 정수형 (4바이트)</li>
+                <li><code>float</code> - 실수형 (4바이트)</li>
+                <li><code>double</code> - 배정밀도 실수형 (8바이트)</li>
+                <li><code>char</code> - 문자형 (1바이트)</li>
+            </ul>
+
+            <div class="code-block" data-lang="c">
+                <pre><code><span class="keyword">int</span> age = <span class="number">25</span>;
+<span class="keyword">float</span> height = <span class="number">175.5</span>;
+<span class="keyword">char</span> grade = <span class="string">'A'</span>;
+<span class="keyword">double</span> pi = <span class="number">3.14159265359</span>;</code></pre>
+            </div>
+
+            <h2>제어문</h2>
+            <h3>조건문 (if-else)</h3>
+            <div class="code-block" data-lang="c">
+                <pre><code><span class="keyword">if</span> (age >= <span class="number">18</span>) {
+    <span class="function">printf</span>(<span class="string">"성인입니다\n"</span>);
+} <span class="keyword">else</span> {
+    <span class="function">printf</span>(<span class="string">"미성년자입니다\n"</span>);
+}</code></pre>
+            </div>
+
+            <h3>반복문 (for, while)</h3>
+            <div class="code-block" data-lang="c">
+                <pre><code><span class="comment">// for문</span>
+<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">10</span>; i++) {
+    <span class="function">printf</span>(<span class="string">"%d "</span>, i);
+}
+
+<span class="comment">// while문</span>
+<span class="keyword">int</span> count = <span class="number">0</span>;
+<span class="keyword">while</span> (count < <span class="number">5</span>) {
+    <span class="function">printf</span>(<span class="string">"%d "</span>, count);
+    count++;
+}</code></pre>
+            </div>
+
+            <h2>함수</h2>
+            <p>함수는 특정 작업을 수행하는 코드 블록입니다.</p>
+            
+            <div class="code-block" data-lang="c">
+                <pre><code><span class="keyword">int</span> <span class="function">add</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b) {
+    <span class="keyword">return</span> a + b;
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> result = <span class="function">add</span>(<span class="number">5</span>, <span class="number">3</span>);
+    <span class="function">printf</span>(<span class="string">"결과: %d\n"</span>, result);
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</code></pre>
+            </div>
+
+            <div class="note-box">
+                <p><strong>💡 참고:</strong> 함수는 main() 함수보다 위에 선언되어야 하거나, 함수 프로토타입을 사용해야 합니다.</p>
+            </div>
+
+            <h2>배열과 포인터</h2>
+            <h3>배열</h3>
+            <div class="code-block" data-lang="c">
+                <pre><code><span class="keyword">int</span> numbers[<span class="number">5</span>] = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>};
+
+<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">5</span>; i++) {
+    <span class="function">printf</span>(<span class="string">"%d "</span>, numbers[i]);
+}</code></pre>
+            </div>
+
+            <h3>포인터</h3>
+            <div class="code-block" data-lang="c">
+                <pre><code><span class="keyword">int</span> x = <span class="number">10</span>;
+<span class="keyword">int</span> *ptr = &x;  <span class="comment">// x의 주소를 저장</span>
+
+<span class="function">printf</span>(<span class="string">"값: %d\n"</span>, *ptr);      <span class="comment">// 10 출력</span>
+<span class="function">printf</span>(<span class="string">"주소: %p\n"</span>, ptr);    <span class="comment">// 주소 출력</span></code></pre>
+            </div>
+
+            <h2>구조체</h2>
+            <p>여러 데이터 타입을 하나로 묶어서 사용할 수 있습니다.</p>
+            
+            <div class="code-block" data-lang="c">
+                <pre><code><span class="keyword">struct</span> Student {
+    <span class="keyword">char</span> name[<span class="number">50</span>];
+    <span class="keyword">int</span> id;
+    <span class="keyword">float</span> gpa;
+};
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">struct</span> Student s1;
+    <span class="function">strcpy</span>(s1.name, <span class="string">"홍길동"</span>);
+    s1.id = <span class="number">2023001</span>;
+    s1.gpa = <span class="number">4.2</span>;
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</code></pre>
+            </div>
+        </div>
+        <!--cpp-->
+        <div class="language-content" data-lang="cpp">
+            <h1>C++ 요약</h1>
+            <p>C++ 내용</p>
+        </div>
+        <!--HTML-->
+        <div class="language-content" data-lang="html">
+            <h1>HTML 요약</h1>
+            <p>HTML 내용</p>
+        </div>
+        <!--Javascript-->
+        <div class="language-content" data-lang="javascript">
+            <h1>JavaScript 요약</h1>
+            <p>JavaScript 내용</p>
+        </div>
+        <!--Java-->
+        <div class="language-content" data-lang="java">
+            <h1>Java 요약</h1>
+            <p>Java 내용</p>
+        </div>
+        <!--Android-->
+        <div class="language-content" data-lang="android">
+            <h1>Android 요약</h1>
+            <p>Android 내용</p>
+        </div>
+        <!--SQL-->
+        <div class="language-content" data-lang="sql">
+            <h1>SQL 요약</h1>
+            <p>SQL 내용</p>
+        </div>
     </div>
-<script src="js/navigation.js"></script> 
+
+    <script>
+        // 언어 탭 전환
+        const langTabs = document.querySelectorAll('.lang-tab');
+        const langContents = document.querySelectorAll('.language-content');
+        
+        langTabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lang = tab.dataset.lang;
+                
+                langTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                langContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.dataset.lang === lang) {
+                        content.classList.add('active');
+                    }
+                });
+                // 페이지 상단으로 스크롤
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
 </body>
 </html>

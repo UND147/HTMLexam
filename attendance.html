@@ -6,6 +6,290 @@
     <title>R1-A3-225230001-정주호</title>
     <link rel="icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 출석체크 메인 컨테이너 */
+        .attendance-container {
+            display: flex;
+            gap: 30px;
+            padding: 40px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* 좌측 프로필 영역 (30%) */
+        .profile-section {
+            flex: 3;
+            background: #1e1e1e;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #2a2a2a;
+            height: fit-content;
+        }
+        
+        .profile-image-wrapper {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 4px solid #3b82f6;
+            margin-bottom: 15px;
+        }
+        
+        .profile-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .profile-buttons button {
+            padding: 8px 16px;
+            background: #2a2a2a;
+            color: #d1d5db;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0;
+        }
+        
+        .profile-buttons button:hover {
+            background: #3a3a3a;
+            color: #ffffff;
+        }
+        
+        .profile-info {
+            margin-top: 25px;
+        }
+        
+        .profile-info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        
+        .profile-info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .profile-info-label {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        .profile-info-value {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .profile-info-value.highlight {
+            color: #3b82f6;
+        }
+        
+        /* 우측 출석 영역 (70%) */
+        .attendance-section {
+            flex: 7;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        /* 명언 카드 */
+        .quote-card {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+            border-radius: 16px;
+            padding: 35px;
+            border: 1px solid #3a3a3a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 80px;
+            color: #3b82f6;
+            opacity: 0.1;
+            font-family: Georgia, serif;
+        }
+        
+        .quote-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #e5e7eb;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quote-author {
+            text-align: right;
+            color: #9ca3af;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        /* 출석 버튼 카드 */
+        .attendance-button-card {
+            background: #1e1e1e;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #2a2a2a;
+            text-align: center;
+        }
+        
+        .attendance-date {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        #attendanceBtn {
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            margin: 0;
+        }
+        
+        #attendanceBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        #attendanceBtn:disabled {
+            background: #2a2a2a;
+            color: #6b7280;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .attendance-message {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+        
+        .attendance-message.success {
+            color: #34d399;
+        }
+        
+        /* 출석 리스트 카드 */
+        .attendance-list-card {
+            background: #1e1e1e;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #2a2a2a;
+        }
+        
+        .attendance-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        
+        .attendance-list-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .attendance-count {
+            color: #3b82f6;
+            font-size: 14px;
+        }
+        
+        .attendance-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .attendance-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #0a0a0a;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .attendance-item:hover {
+            background: #1a1a1a;
+            transform: translateX(5px);
+        }
+        
+        .attendance-rank {
+            width: 40px;
+            height: 40px;
+            background: #2a2a2a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #9ca3af;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+        
+        .attendance-rank.first {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #ffffff;
+        }
+        
+        .attendance-rank.second {
+            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+            color: #ffffff;
+        }
+        
+        .attendance-rank.third {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: #ffffff;
+        }
+        
+        .attendance-user-info {
+            flex: 1;
+        }
+        
+        .attendance-nickname {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .attendance-time {
+            color: #6b7280;
+            font-size: 13px;
+        }
+        
+        /* 숨겨진 파일 입력 */
+        #profileImageInput {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header id="header">
@@ -36,6 +320,260 @@
         <a href="language.html">언어요약</a>
         <a href="timetable.html">시간표</a>
     </nav>
+    <div class="attendance-container">
+        <!-- 좌측 프로필 영역 -->
+        <aside class="profile-section">
+            <div class="profile-image-wrapper">
+                <img id="profileImage" class="profile-image" src="img/defaultProfile.png" alt="프로필 이미지">
+                <div class="profile-buttons">
+                    <button onclick="changeProfileImage()">사진 변경</button>
+                    <button onclick="resetProfileImage()">사진 제거</button>
+                </div>
+                <input type="file" id="profileImageInput" accept="image/*">
+            </div>
+            
+            <div class="profile-info">
+                <div class="profile-info-item">
+                    <span class="profile-info-label">이름</span>
+                    <span class="profile-info-value" id="userName">정주호</span>
+                </div>
+                <div class="profile-info-item">
+                    <span class="profile-info-label">닉네임</span>
+                    <span class="profile-info-value" id="userNickname">CHENGJUHO</span>
+                </div>
+                <div class="profile-info-item">
+                    <span class="profile-info-label">누적 출석일수</span>
+                    <span class="profile-info-value highlight" id="totalAttendance">42일</span>
+                </div>
+                <div class="profile-info-item">
+                    <span class="profile-info-label">연속 출석일수</span>
+                    <span class="profile-info-value highlight" id="consecutiveAttendance">7일</span>
+                </div>
+                <div class="profile-info-item">
+                    <span class="profile-info-label">마지막 출석</span>
+                    <span class="profile-info-value" id="lastAttendance">2025-11-17</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 우측 출석 영역 -->
+        <main class="attendance-section">
+            <!-- 명언 카드 -->
+            <div class="quote-card">
+                <p class="quote-text" id="quoteText"></p>
+                <p class="quote-author" id="quoteAuthor"></p>
+            </div>
+
+            <!-- 출석 버튼 -->
+            <div class="attendance-button-card">
+                <p class="attendance-date" id="currentDate"></p>
+                <button id="attendanceBtn" onclick="checkAttendance()">오늘의 출석체크</button>
+                <p class="attendance-message" id="attendanceMessage"></p>
+            </div>
+
+            <!-- 출석 리스트 -->
+            <div class="attendance-list-card">
+                <div class="attendance-list-header">
+                    <h3 class="attendance-list-title">오늘의 출석 현황</h3>
+                    <span class="attendance-count">총 <span id="attendanceTotal">0</span>명</span>
+                </div>
+                <div class="attendance-list" id="attendanceList">
+                    <!-- 출석 항목들이 여기에 동적으로 추가됩니다 -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 불교 명언 배열
+        const buddhistQuotes = [
+            { text: "마음이 모든 것을 이끈다. 마음이 주인이고 마음이 만든다.", author: "- 붓다" },
+            { text: "과거에 집착하지 말고, 미래를 꿈꾸지 말라. 마음을 현재에 집중하라.", author: "- 붓다" },
+            { text: "분노를 품는 것은 다른 사람에게 던지려고 뜨거운 석탄을 쥐고 있는 것과 같다.", author: "- 붓다" },
+            { text: "천 마디의 공허한 말보다, 평화를 가져다 주는 한 마디가 낫다.", author: "- 붓다" },
+            { text: "건강이 가장 큰 선물이고, 만족이 가장 큰 부이며, 신뢰가 가장 큰 친구이다.", author: "- 붓다" },
+            { text: "당신의 일을 열정적으로 하라. 그러면 당신은 당신을 발견하게 될 것이다.", author: "- 붓다" },
+            { text: "우리가 생각하는 것이 우리 자신이다. 우리가 생각하는 모든 것이 우리의 세계를 만든다.", author: "- 붓다" },
+            { text: "모든 것은 변한다. 영원한 것은 없다. 이것을 이해하라.", author: "- 붓다" },
+            { text: "고통의 근원은 집착이다.", author: "- 붓다" },
+            { text: "의심은 가장 큰 적이다. 의심은 사람을 진리로부터 멀어지게 한다.", author: "- 붓다" }
+        ];
+
+        // 페이지 로드 시 실행
+        window.onload = function() {
+            displayRandomQuote();
+            displayCurrentDate();
+            loadAttendanceData();
+            checkTodayAttendance();
+        };
+
+        // 랜덤 명언 표시
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * buddhistQuotes.length);
+            const quote = buddhistQuotes[randomIndex];
+            document.getElementById('quoteText').textContent = quote.text;
+            document.getElementById('quoteAuthor').textContent = quote.author;
+        }
+
+        // 현재 날짜 표시
+        function displayCurrentDate() {
+            const today = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const dateString = today.toLocaleDateString('ko-KR', options);
+            document.getElementById('currentDate').textContent = dateString;
+        }
+
+        // 출석 체크 함수
+        function checkAttendance() {
+            const btn = document.getElementById('attendanceBtn');
+            const message = document.getElementById('attendanceMessage');
+            
+            // 이미 출석했는지 확인
+            const todayAttended = localStorage.getItem('attendedToday');
+            if (todayAttended === new Date().toDateString()) {
+                message.textContent = '오늘은 이미 출석체크를 완료했습니다!';
+                message.classList.remove('success');
+                return;
+            }
+
+            // 출석 처리
+            btn.disabled = true;
+            message.textContent = '출석체크 완료! 좋은 하루 되세요 😊';
+            message.classList.add('success');
+            
+            // 로컬 스토리지에 저장
+            localStorage.setItem('attendedToday', new Date().toDateString());
+            
+            // TODO: 서버에 출석 데이터 전송
+            // Example: 
+            // fetch('/api/attendance', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ userId: 'current_user_id', date: new Date() })
+            // });
+
+            // 출석 리스트에 현재 사용자 추가
+            addAttendanceToList('JuhoCheng', new Date());
+            updateUserStats();
+        }
+
+        // 오늘 출석 여부 확인
+        function checkTodayAttendance() {
+            const todayAttended = localStorage.getItem('attendedToday');
+            if (todayAttended === new Date().toDateString()) {
+                const btn = document.getElementById('attendanceBtn');
+                const message = document.getElementById('attendanceMessage');
+                btn.disabled = true;
+                message.textContent = '오늘은 이미 출석체크를 완료했습니다!';
+            }
+        }
+
+        // 출석 데이터 로드 (예시)
+        function loadAttendanceData() {
+            // TODO: 서버에서 오늘의 출석 데이터 가져오기
+            // Example:
+            // fetch('/api/attendance/today')
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         data.forEach(item => addAttendanceToList(item.nickname, item.time));
+            //     });
+
+            // 예시 데이터
+            const exampleData = [
+                { nickname: '이재현', time: new Date('2025-11-18T06:30:00') },
+                { nickname: '김영웅', time: new Date('2025-11-18T07:15:00') },
+                { nickname: '이재희', time: new Date('2025-11-18T08:00:00') },
+                { nickname: '배찬승', time: new Date('2025-11-18T08:30:00') },
+                { nickname: '이호성', time: new Date('2025-11-18T09:00:00') }
+            ];
+
+            exampleData.forEach(item => addAttendanceToList(item.nickname, item.time));
+        }
+
+        // 출석 리스트에 항목 추가
+        function addAttendanceToList(nickname, time) {
+            const list = document.getElementById('attendanceList');
+            const currentCount = list.children.length;
+            
+            const item = document.createElement('div');
+            item.className = 'attendance-item';
+            
+            const rank = currentCount + 1;
+            let rankClass = '';
+            if (rank === 1) rankClass = 'first';
+            else if (rank === 2) rankClass = 'second';
+            else if (rank === 3) rankClass = 'third';
+            
+            const timeString = new Date(time).toLocaleTimeString('ko-KR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            item.innerHTML = `
+                <div class="attendance-rank ${rankClass}">${rank}</div>
+                <div class="attendance-user-info">
+                    <div class="attendance-nickname">${nickname}</div>
+                    <div class="attendance-time">${timeString}</div>
+                </div>
+            `;
+            
+            list.appendChild(item);
+            document.getElementById('attendanceTotal').textContent = rank;
+        }
+
+        // 사용자 통계 업데이트
+        function updateUserStats() {
+            // TODO: 서버에서 사용자 통계 가져오기
+            // Example:
+            // fetch('/api/user/stats')
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         document.getElementById('totalAttendance').textContent = data.total + '일';
+            //         document.getElementById('consecutiveAttendance').textContent = data.consecutive + '일';
+            //         document.getElementById('lastAttendance').textContent = data.lastDate;
+            //     });
+
+            // 임시로 로컬에서 업데이트
+            const currentTotal = parseInt(document.getElementById('totalAttendance').textContent);
+            const currentConsecutive = parseInt(document.getElementById('consecutiveAttendance').textContent);
+            
+            document.getElementById('totalAttendance').textContent = (currentTotal + 1) + '일';
+            document.getElementById('consecutiveAttendance').textContent = (currentConsecutive + 1) + '일';
+            document.getElementById('lastAttendance').textContent = new Date().toLocaleDateString('ko-KR');
+        }
+
+        // 프로필 이미지 변경
+        function changeProfileImage() {
+            document.getElementById('profileImageInput').click();
+        }
+
+        document.getElementById('profileImageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('profileImage').src = event.target.result;
+                    // TODO: 서버에 이미지 업로드
+                    // Example:
+                    // const formData = new FormData();
+                    // formData.append('profileImage', file);
+                    // fetch('/api/user/profile-image', {
+                    //     method: 'POST',
+                    //     body: formData
+                    // });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 프로필 이미지 제거 (기본 이미지로)
+        function resetProfileImage() {
+            document.getElementById('profileImage').src = 'img/defaultProfile.png';
+            // TODO: 서버에 기본 이미지로 변경 요청
+            // Example:
+            // fetch('/api/user/profile-image/reset', { method: 'DELETE' });
+        }
+    </script>
 <script src="js/navigation.js"></script> 
 </body>
 </html>
